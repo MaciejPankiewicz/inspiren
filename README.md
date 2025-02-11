@@ -21,6 +21,7 @@ Your task is to cover it with tests using Playwright.
 ## Installation
 
 Install dependencies:
+
 ```sh
 npm install
 ```
@@ -28,6 +29,30 @@ npm install
 ## Usage
 
 To run the project:
+
 ```sh
 npm run dev
+
+```
+
+## Automatic tests
+
+Install playwright if needed:
+
+```sh
+npm init playwright@latest
+```
+
+Test run:
+
+- To run all test
+
+```sh
+npx playwright test --workers=1
+```
+
+- To run selected test file
+
+```sh
+npx playwright test tests/board.spec.ts --workers=1
 ```
