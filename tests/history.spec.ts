@@ -15,6 +15,7 @@ const test = base.extend<TestFixtures>({
     await run(new HistoryPage(page));
   },
 });
+
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
@@ -24,11 +25,16 @@ test.describe("Check history of turns", () => {
     boardPage,
     historyPage,
   }) => {
+    // ASSERT
     await expect(historyPage.turnHistoryLabelText).toBeVisible();
     await expect(historyPage.goToGameStartButton).toBeVisible();
+    // ACT
     await boardPage.firstSquare.click();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: O");
+    // ACT
     await historyPage.goToGameStartButton.click();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
     await boardPage.checkEachRowForSelectedSquares();
   });
@@ -36,15 +42,23 @@ test.describe("Check history of turns", () => {
     boardPage,
     historyPage,
   }) => {
+    // ASSERT
     await expect(historyPage.goToGameStartButton).toBeVisible();
+    // ACT
     await boardPage.firstSquare.click();
+    // ASSERT
     expect(await historyPage.goToMoveButton.count()).toBe(1);
+    // ACT
     await boardPage.secondSquare.click();
+    // ASSERT
     expect(await historyPage.goToMoveButton.count()).toBe(2);
+    // ACT
     await historyPage.goToGameStartButton.click();
     await boardPage.firstSquare.click();
+    // ASSERT
     expect(await historyPage.goToMoveButton.count()).toBe(1);
     await boardPage.resetGame();
+    // ASSERT
     expect(await historyPage.goToMoveButton.count()).toBe(0);
   });
 
@@ -52,8 +66,10 @@ test.describe("Check history of turns", () => {
     historyPage,
     boardPage,
   }) => {
+    // ACT
     await boardPage.playersAlmostDrawByAllMoves();
     await historyPage.gotoMoveButton8.click();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: O");
     await expect(boardPage.ninthSquare).toHaveText("");
   });

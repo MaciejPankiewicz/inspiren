@@ -39,6 +39,7 @@ test.describe("Check if the game is working properly when Player X wins", () => 
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: X");
   });
 });
+
 test.describe("Check if the game is working properly when Player O wins", () => {
   test("Check message when Player O wins by row", async ({ boardPage }) => {
     // ACT
@@ -63,11 +64,12 @@ test.describe("Check if the game is working properly when Player O wins", () => 
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: O");
   });
 });
+
 test.describe("Check if the game is working properly when Players draw", () => {
   test("Check if the game is working properly when Players draw by using all moves", async ({
     boardPage,
   }) => {
-    // FAILING TEST - failes due to missing DRAW message/functionality.
+    // WARNING!!!! FAILING TEST - fail due to missing DRAW message/functionality.
 
     // ACT
     await boardPage.playersDrawByAllMoves();
@@ -86,58 +88,75 @@ test.describe("Check if the game is working properly when Players draw", () => {
 
 test.describe("Check how app reacts to selecting fields", () => {
   test("Check if players can select already selected fields", async ({
-    page,
+    boardPage,
   }) => {
-    // ARRANGE
-    const newBoard = new BoardPage(page);
-
-    await newBoard.firstSquare.click();
-    await expect(newBoard.firstSquare).toHaveText("X");
-    await newBoard.firstSquare.click();
-    await expect(newBoard.firstSquare).toHaveText("X");
-    await newBoard.secondSquare.click();
-    await expect(newBoard.secondSquare).toHaveText("O");
+    // ACT
+    await boardPage.firstSquare.click();
+    // ASSERT
+    await expect(boardPage.firstSquare).toHaveText("X");
+    // ACT
+    await boardPage.firstSquare.click();
+    // ASSERT
+    await expect(boardPage.firstSquare).toHaveText("X");
+    // ACT
+    await boardPage.secondSquare.click();
+    // ASSERT
+    await expect(boardPage.secondSquare).toHaveText("O");
   });
   test("Check if players can select fields after game ended in Win", async ({
-    page,
+    boardPage,
   }) => {
-    // ARRANGE
-    const newBoard = new BoardPage(page);
-
-    await newBoard.playerXwinsByRow();
-    await newBoard.sixthSquare.click();
-    await expect(newBoard.sixthSquare).toHaveText("");
+    // ACT
+    await boardPage.playerXwinsByRow();
+    await boardPage.sixthSquare.click();
+    // ASSERT
+    await expect(boardPage.sixthSquare).toHaveText("");
   });
 });
 test.describe("Check RESET button funcionality and display of next Player", () => {
   test("Check if reset button works after player marks the square and if player turn display works", async ({
     boardPage,
   }) => {
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
+    // ACT
     await boardPage.firstSquare.click();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: O");
+    // ACT
     await boardPage.secondSquare.click();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
+    // ACT
     await boardPage.thirdSquare.click();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: O");
+    // ACT
     await boardPage.resetGame();
     await boardPage.checkEachRowForSelectedSquares();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
   });
   test("Check if reset button works after players marks several squares and if player turn display resets", async ({
     boardPage,
   }) => {
+    // ACT
     await boardPage.playersAlmostDrawByAllMoves();
     await boardPage.resetGame();
+    // ASSERT
     await boardPage.checkEachRowForSelectedSquares();
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
   });
   test("Check if reset button works after player wins and if player turn display resets", async ({
     boardPage,
   }) => {
+    // ACT
     await boardPage.playerXwinsByRow();
+    // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: X");
+    // ACT
     await boardPage.resetGame();
+    // ASSERT
     await boardPage.checkEachRowForSelectedSquares();
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
   });
