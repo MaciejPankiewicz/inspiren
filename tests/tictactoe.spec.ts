@@ -61,12 +61,29 @@ test.describe("Check if the game is working properly when Player O wins", () => 
     expect(await newBoard.gameStatusText.innerText()).toBe("Winner: O");
   });
 });
+test.describe("Check if the game is working properly when Players draw", () => {
+  test("Check if the game is working properly when Players draw by using all moves", async ({
+    page,
+  }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+    // ACT
+    await newBoard.playersDrawByAllMoves();
+    // ASSERT
+    expect(await newBoard.gameStatusText.innerText()).toBe("Draw");
+  });
+  test("Check if the game is working properly when Players almost draw by using all moves", async ({
+    page,
+  }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+    // ACT
+    await newBoard.playersAlmostDrawByAllMoves();
+    // ASSERT
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: X");
+  });
+});
 
-// PLayer 0 wins - check the message
-// player wins by row
-// player wins by column
-// player wins diagonally
-// draw by all fields - check the message
 // Check if possible to select selected field
 // Check if possible to check field after game is finished
 // check current player turn

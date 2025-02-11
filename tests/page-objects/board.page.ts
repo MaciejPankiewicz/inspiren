@@ -47,7 +47,7 @@ export class BoardPage {
     await this.sixthSquare.click();
     await this.ninthSquare.click();
   }
-  async playerOwinsByRow() {
+  async playerOwinsByRow(): Promise<void> {
     await this.firstSquare.click();
     await this.fourthSquare.click();
     await this.secondSquare.click();
@@ -55,7 +55,7 @@ export class BoardPage {
     await this.seventhSquare.click();
     await this.sixthSquare.click();
   }
-  async playerOwinsByColumn() {
+  async playerOwinsByColumn(): Promise<void> {
     await this.firstSquare.click();
     await this.secondSquare.click();
     await this.fourthSquare.click();
@@ -63,12 +63,39 @@ export class BoardPage {
     await this.ninthSquare.click();
     await this.eighthSquare.click();
   }
-  async playerOwinsByDiag() {
+  async playerOwinsByDiag(): Promise<void> {
     await this.secondSquare.click();
     await this.firstSquare.click();
     await this.sixthSquare.click();
     await this.fifthSquare.click();
     await this.fourthSquare.click();
     await this.ninthSquare.click();
+  }
+
+  async playersDrawByAllMoves(): Promise<void> {
+    await this.firstSquare.click();
+    await this.secondSquare.click();
+    await this.thirdSquare.click();
+    await this.fourthSquare.click();
+    await this.sixthSquare.click();
+    await this.fifthSquare.click();
+    await this.seventhSquare.click();
+    await this.ninthSquare.click();
+    await this.eighthSquare.click();
+  }
+
+  async playersAlmostDrawByAllMoves(): Promise<void> {
+    await this.firstSquare.click();
+    await this.secondSquare.click();
+    await this.thirdSquare.click();
+    await this.fourthSquare.click();
+    await this.sixthSquare.click();
+    await this.fifthSquare.click();
+    await this.seventhSquare.click();
+    await this.ninthSquare.click();
+  }
+
+  async resetGame(): Promise<void> {
+    await this.gameResetButton.click();
   }
 }
