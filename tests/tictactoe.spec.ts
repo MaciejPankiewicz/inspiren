@@ -33,7 +33,35 @@ test.describe("Check if the game is working properly when Player X wins", () => 
     expect(await newBoard.gameStatusText.innerText()).toBe("Winner: X");
   });
 });
-// PLayer X wins - check the message
+test.describe("Check if the game is working properly when Player O wins", () => {
+  test("Check message when Player O wins by row", async ({ page }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+    // ACT
+    await newBoard.playerOwinsByRow();
+    // ASSERT
+    expect(await newBoard.gameStatusText.innerText()).toBe("Winner: O");
+  });
+
+  test("Check message when Player O wins by column", async ({ page }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+    // ACT
+    await newBoard.playerOwinsByColumn();
+    // ASSERT
+    expect(await newBoard.gameStatusText.innerText()).toBe("Winner: O");
+  });
+
+  test("Check message when Player O wins by diagonal", async ({ page }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+    // ACT
+    await newBoard.playerOwinsByDiag();
+    // ASSERT
+    expect(await newBoard.gameStatusText.innerText()).toBe("Winner: O");
+  });
+});
+
 // PLayer 0 wins - check the message
 // player wins by row
 // player wins by column

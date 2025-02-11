@@ -33,24 +33,42 @@ export class BoardPage {
     await this.fifthSquare.click();
     await this.thirdSquare.click();
   }
-  async playerXwinsByColumn() {
+  async playerXwinsByColumn(): Promise<void> {
     await this.firstSquare.click();
     await this.secondSquare.click();
     await this.fourthSquare.click();
     await this.fifthSquare.click();
     await this.seventhSquare.click();
   }
-  async playerXwinsByDiag() {
+  async playerXwinsByDiag(): Promise<void> {
     await this.firstSquare.click();
     await this.secondSquare.click();
     await this.fifthSquare.click();
     await this.sixthSquare.click();
     await this.ninthSquare.click();
   }
-  // async playerOwinsByRow() {
-  // }
-  // async playerOwinsByColumn() {
-  // }
-  // async playerOwinsByDiag() {
-  // }
+  async playerOwinsByRow() {
+    await this.firstSquare.click();
+    await this.fourthSquare.click();
+    await this.secondSquare.click();
+    await this.fifthSquare.click();
+    await this.seventhSquare.click();
+    await this.sixthSquare.click();
+  }
+  async playerOwinsByColumn() {
+    await this.firstSquare.click();
+    await this.secondSquare.click();
+    await this.fourthSquare.click();
+    await this.fifthSquare.click();
+    await this.ninthSquare.click();
+    await this.eighthSquare.click();
+  }
+  async playerOwinsByDiag() {
+    await this.secondSquare.click();
+    await this.firstSquare.click();
+    await this.sixthSquare.click();
+    await this.fifthSquare.click();
+    await this.fourthSquare.click();
+    await this.ninthSquare.click();
+  }
 }
