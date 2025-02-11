@@ -84,8 +84,32 @@ test.describe("Check if the game is working properly when Players draw", () => {
   });
 });
 
-// Check if possible to select selected field
-// Check if possible to check field after game is finished
+test.describe("Check how app reacts to selecting fields", () => {
+  test("Check if players can select already selected fields", async ({
+    page,
+  }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+
+    await newBoard.firstSquare.click();
+    expect(newBoard.firstSquare).toHaveText("X");
+    await newBoard.firstSquare.click();
+    expect(newBoard.firstSquare).toHaveText("X");
+    await newBoard.secondSquare.click();
+    expect(newBoard.secondSquare).toHaveText("O");
+  });
+  test("Check if players can select fields after game ended in Win", async ({
+    page,
+  }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+
+    await newBoard.playerXwinsByRow();
+    await newBoard.sixthSquare.click();
+    expect(newBoard.sixthSquare).toHaveText("");
+  });
+});
+
 // check current player turn
 // check reset button in couple scenarios
 // check history of the turns
