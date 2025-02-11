@@ -56,3 +56,9 @@ npx playwright test --workers=1
 ```sh
 npx playwright test tests/board.spec.ts --workers=1
 ```
+
+- To run UI mode
+
+```sh
+npx playwright test tests/board.spec.ts --ui --workers=1
+```
