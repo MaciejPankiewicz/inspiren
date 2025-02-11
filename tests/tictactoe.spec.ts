@@ -65,6 +65,7 @@ test.describe("Check if the game is working properly when Players draw", () => {
   test("Check if the game is working properly when Players draw by using all moves", async ({
     page,
   }) => {
+    // FAILING TEST - failes due to missing DRAW message/functionality.
     // ARRANGE
     const newBoard = new BoardPage(page);
     // ACT
@@ -92,11 +93,11 @@ test.describe("Check how app reacts to selecting fields", () => {
     const newBoard = new BoardPage(page);
 
     await newBoard.firstSquare.click();
-    expect(newBoard.firstSquare).toHaveText("X");
+    await expect(newBoard.firstSquare).toHaveText("X");
     await newBoard.firstSquare.click();
-    expect(newBoard.firstSquare).toHaveText("X");
+    await expect(newBoard.firstSquare).toHaveText("X");
     await newBoard.secondSquare.click();
-    expect(newBoard.secondSquare).toHaveText("O");
+    await expect(newBoard.secondSquare).toHaveText("O");
   });
   test("Check if players can select fields after game ended in Win", async ({
     page,
@@ -106,12 +107,45 @@ test.describe("Check how app reacts to selecting fields", () => {
 
     await newBoard.playerXwinsByRow();
     await newBoard.sixthSquare.click();
-    expect(newBoard.sixthSquare).toHaveText("");
+    await expect(newBoard.sixthSquare).toHaveText("");
+  });
+});
+test.describe("Check RESET button funcionality and display of next Player", () => {
+  test("Check if reset button works after player marks the square", async ({
+    page,
+  }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+
+    await newBoard.firstSquare.click();
+    await expect(newBoard.firstSquare).toHaveText("X");
+    await newBoard.resetGame();
+    await expect(newBoard.firstSquare).toHaveText("");
+  });
+  test("Check if reset button works after players marks several squares", async ({
+    page,
+  }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+
+    await newBoard.playersAlmostDrawByAllMoves();
+    await expect(newBoard.firstSquare).toHaveText("X");
+    await newBoard.resetGame();
+    await newBoard.checkEachRowForSelectedSquares();
+  });
+  test("Check if reset button works after player wins", async ({ page }) => {
+    // ARRANGE
+    const newBoard = new BoardPage(page);
+
+    await newBoard.playerXwinsByRow();
+    await newBoard.resetGame();
+    await newBoard.checkEachRowForSelectedSquares();
   });
 });
 
 // check current player turn
-// check reset button in couple scenarios
+
 // check history of the turns
 // check if possible to go back to any previous turn
 // go to game start from history
+// ADD BUG REPORT FOR MISSING DRAW MESSAGE

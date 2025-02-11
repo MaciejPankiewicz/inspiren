@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
 export class BoardPage {
   firstSquare: Locator;
@@ -12,6 +12,7 @@ export class BoardPage {
   ninthSquare: Locator;
   gameStatusText: Locator;
   gameResetButton: Locator;
+  gameRows: Locator;
   constructor(private page: Page) {
     this.firstSquare = page.locator(".board-row .square").nth(0);
     this.secondSquare = page.locator(".board-row .square").nth(1);
@@ -24,6 +25,7 @@ export class BoardPage {
     this.ninthSquare = page.locator(".board-row .square").nth(8);
     this.gameStatusText = page.locator(".status");
     this.gameResetButton = page.locator(".reset-wrapper");
+    this.gameRows = page.locator(".board-row");
   }
 
   async playerXwinsByRow(): Promise<void> {
@@ -97,5 +99,13 @@ export class BoardPage {
 
   async resetGame(): Promise<void> {
     await this.gameResetButton.click();
+  }
+
+  async checkEachRow(): Promise<void> {
+    const rows = await this.gameRows.all(); // Get all rows
+
+    for (const row of rows) {
+      await expect(row).not.toHaveText(/X|O/);
+    }
   }
 }
