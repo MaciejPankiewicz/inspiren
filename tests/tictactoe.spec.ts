@@ -111,39 +111,47 @@ test.describe("Check how app reacts to selecting fields", () => {
   });
 });
 test.describe("Check RESET button funcionality and display of next Player", () => {
-  test("Check if reset button works after player marks the square", async ({
+  test("Check if reset button works after player marks the square and if player turn works", async ({
     page,
   }) => {
     // ARRANGE
     const newBoard = new BoardPage(page);
 
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: X");
     await newBoard.firstSquare.click();
-    await expect(newBoard.firstSquare).toHaveText("X");
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: O");
+    await newBoard.secondSquare.click();
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: X");
+    await newBoard.thirdSquare.click();
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: O");
     await newBoard.resetGame();
-    await expect(newBoard.firstSquare).toHaveText("");
+    await newBoard.checkEachRowForSelectedSquares();
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: X");
   });
-  test("Check if reset button works after players marks several squares", async ({
+  test("Check if reset button works after players marks several squares and if player turn resets", async ({
     page,
   }) => {
     // ARRANGE
     const newBoard = new BoardPage(page);
 
     await newBoard.playersAlmostDrawByAllMoves();
-    await expect(newBoard.firstSquare).toHaveText("X");
     await newBoard.resetGame();
     await newBoard.checkEachRowForSelectedSquares();
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: X");
   });
-  test("Check if reset button works after player wins", async ({ page }) => {
+  test("Check if reset button works after player wins and if player turn resets", async ({
+    page,
+  }) => {
     // ARRANGE
     const newBoard = new BoardPage(page);
 
     await newBoard.playerXwinsByRow();
+    expect(await newBoard.gameStatusText.innerText()).toBe("Winner: X");
     await newBoard.resetGame();
     await newBoard.checkEachRowForSelectedSquares();
+    expect(await newBoard.gameStatusText.innerText()).toBe("Next player: X");
   });
 });
-
-// check current player turn
 
 // check history of the turns
 // check if possible to go back to any previous turn

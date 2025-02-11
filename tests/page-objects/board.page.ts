@@ -101,7 +101,7 @@ export class BoardPage {
     await this.gameResetButton.click();
   }
 
-  async checkEachRow(): Promise<void> {
+  async checkEachRowForSelectedSquares(): Promise<void> {
     const rows = await this.gameRows.all(); // Get all rows
 
     for (const row of rows) {
