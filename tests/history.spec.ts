@@ -20,8 +20,8 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
-test.describe("Check history of turns", () => {
-  test("Check if Go to game start button works ", async ({
+test.describe("Turn History Functionality", () => {
+  test("Check if the 'Go to game start' button resets the game state", async ({
     boardPage,
     historyPage,
   }) => {
@@ -38,7 +38,7 @@ test.describe("Check history of turns", () => {
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
     await boardPage.checkEachRowForSelectedSquares();
   });
-  test("Check if Turn History reacts to player moves ", async ({
+  test("Check if Turn History reflects player moves", async ({
     boardPage,
     historyPage,
   }) => {
@@ -57,12 +57,13 @@ test.describe("Check history of turns", () => {
     await boardPage.firstSquare.click();
     // ASSERT
     expect(await historyPage.goToMoveButton.count()).toBe(1);
+    // ACT
     await boardPage.resetGame();
     // ASSERT
     expect(await historyPage.goToMoveButton.count()).toBe(0);
   });
 
-  test("Verify Turn History updates Gameboard correctly ", async ({
+  test("Check if selecting a move in Turn History updates the Gameboard accurately", async ({
     historyPage,
     boardPage,
   }) => {

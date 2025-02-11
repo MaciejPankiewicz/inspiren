@@ -15,22 +15,24 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
 });
 
-test.describe("Check if the game is working properly when Player X wins", () => {
-  test("Check message when Player X wins by row", async ({ boardPage }) => {
+test.describe("Game Functionality - Player X Wins", () => {
+  test("Check win message when Player X wins by row", async ({ boardPage }) => {
     // ACT
     await boardPage.playerXwinsByRow();
     // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: X");
   });
 
-  test("Check message when Player X wins by column", async ({ boardPage }) => {
+  test("Check win message when Player X wins by column", async ({
+    boardPage,
+  }) => {
     // ACT
     await boardPage.playerXwinsByColumn();
     // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: X");
   });
 
-  test("Check message when Player X wins by diagonal", async ({
+  test("Check win message when Player X wins by diagonal", async ({
     boardPage,
   }) => {
     // ACT
@@ -40,22 +42,24 @@ test.describe("Check if the game is working properly when Player X wins", () => 
   });
 });
 
-test.describe("Check if the game is working properly when Player O wins", () => {
-  test("Check message when Player O wins by row", async ({ boardPage }) => {
+test.describe("Game Functionality - Player O Wins", () => {
+  test("Check win message when Player O wins by row", async ({ boardPage }) => {
     // ACT
     await boardPage.playerOwinsByRow();
     // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: O");
   });
 
-  test("Check message when Player O wins by column", async ({ boardPage }) => {
+  test("Check win message when Player O wins by column", async ({
+    boardPage,
+  }) => {
     // ACT
     await boardPage.playerOwinsByColumn();
     // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Winner: O");
   });
 
-  test("Check message when Player O wins by diagonal", async ({
+  test("Check win message when Player O wins by diagonal", async ({
     boardPage,
   }) => {
     // ACT
@@ -65,8 +69,8 @@ test.describe("Check if the game is working properly when Player O wins", () => 
   });
 });
 
-test.describe("Check if the game is working properly when Players draw", () => {
-  test("Check if the game is working properly when Players draw by using all moves", async ({
+test.describe("Game Functionality - Draw Scenario", () => {
+  test("Check if the game properly recognizes a draw after all moves", async ({
     boardPage,
   }) => {
     // WARNING!!!! FAILING TEST - fail due to missing DRAW message/functionality.
@@ -76,7 +80,7 @@ test.describe("Check if the game is working properly when Players draw", () => {
     // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Draw");
   });
-  test("Check if the game is working properly when Players almost draw by using all moves", async ({
+  test("Check if the game correctly handles an almost-draw scenario", async ({
     boardPage,
   }) => {
     // ACT
@@ -86,8 +90,8 @@ test.describe("Check if the game is working properly when Players draw", () => {
   });
 });
 
-test.describe("Check how app reacts to selecting fields", () => {
-  test("Check if players can select already selected fields", async ({
+test.describe("Game Functionality - Field Selection", () => {
+  test("Check if players are prevented from selecting taken fields", async ({
     boardPage,
   }) => {
     // ACT
@@ -103,7 +107,7 @@ test.describe("Check how app reacts to selecting fields", () => {
     // ASSERT
     await expect(boardPage.secondSquare).toHaveText("O");
   });
-  test("Check if players can select fields after game ended in Win", async ({
+  test("Check if players can select fields after a game-winning move", async ({
     boardPage,
   }) => {
     // ACT
@@ -113,8 +117,9 @@ test.describe("Check how app reacts to selecting fields", () => {
     await expect(boardPage.sixthSquare).toHaveText("");
   });
 });
-test.describe("Check RESET button funcionality and display of next Player", () => {
-  test("Check if reset button works after player marks the square and if player turn display works", async ({
+
+test.describe("Game Functionality - Reset Button and Player Turn Display", () => {
+  test("Check if the Reset button works after a player marks a square and if turn display updates correctly after it", async ({
     boardPage,
   }) => {
     // ASSERT
@@ -137,7 +142,7 @@ test.describe("Check RESET button funcionality and display of next Player", () =
     // ASSERT
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
   });
-  test("Check if reset button works after players marks several squares and if player turn display resets", async ({
+  test("Check if Reset clears marked squares and restores player turn order", async ({
     boardPage,
   }) => {
     // ACT
@@ -147,7 +152,7 @@ test.describe("Check RESET button funcionality and display of next Player", () =
     await boardPage.checkEachRowForSelectedSquares();
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
   });
-  test("Check if reset button works after player wins and if player turn display resets", async ({
+  test("Check if Reset button works after a win and if it resets turn display", async ({
     boardPage,
   }) => {
     // ACT
