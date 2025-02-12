@@ -1,19 +1,19 @@
 import { expect, Locator, Page } from "@playwright/test";
 
 export class BoardPage {
-  firstSquare: Locator;
-  secondSquare: Locator;
-  thirdSquare: Locator;
-  fourthSquare: Locator;
-  fifthSquare: Locator;
-  sixthSquare: Locator;
-  seventhSquare: Locator;
-  eighthSquare: Locator;
-  ninthSquare: Locator;
-  gameStatusText: Locator;
-  gameResetButton: Locator;
-  gameRows: Locator;
-  constructor(private page: Page) {
+  readonly firstSquare: Locator;
+  readonly secondSquare: Locator;
+  readonly thirdSquare: Locator;
+  readonly fourthSquare: Locator;
+  readonly fifthSquare: Locator;
+  readonly sixthSquare: Locator;
+  readonly seventhSquare: Locator;
+  readonly eighthSquare: Locator;
+  readonly ninthSquare: Locator;
+  readonly gameStatusText: Locator;
+  readonly gameResetButton: Locator;
+  readonly gameRows: Locator;
+  constructor(page: Page) {
     this.firstSquare = page.locator(".board-row .square").nth(0);
     this.secondSquare = page.locator(".board-row .square").nth(1);
     this.thirdSquare = page.locator(".board-row .square").nth(2);

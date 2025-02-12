@@ -25,16 +25,16 @@ test.describe("Turn History Functionality", () => {
     boardPage,
     historyPage,
   }) => {
-    // ASSERT
+    // ASSERT - check visibility of elements
     await expect(historyPage.turnHistoryLabelText).toBeVisible();
     await expect(historyPage.goToGameStartButton).toBeVisible();
-    // ACT
+    // ACT - make a move
     await boardPage.firstSquare.click();
-    // ASSERT
+    // ASSERT - check player turn display
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: O");
-    // ACT
+    // ACT - use Go to game start button
     await historyPage.goToGameStartButton.click();
-    // ASSERT
+    // ASSERT - check if turn display and game state is reset
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: X");
     await boardPage.checkEachRowForSelectedSquares();
   });
@@ -42,24 +42,24 @@ test.describe("Turn History Functionality", () => {
     boardPage,
     historyPage,
   }) => {
-    // ASSERT
+    // ASSERT - check visibility of elements
     await expect(historyPage.goToGameStartButton).toBeVisible();
-    // ACT
+    // ACT - make a move
     await boardPage.firstSquare.click();
-    // ASSERT
+    // ASSERT - Verify the number of "Go to move" buttons displayed
     expect(await historyPage.goToMoveButton.count()).toBe(1);
-    // ACT
+    // ACT - make another move
     await boardPage.secondSquare.click();
-    // ASSERT
+    // ASSERT - Verify the number of "Go to move" buttons displayed
     expect(await historyPage.goToMoveButton.count()).toBe(2);
-    // ACT
+    // ACT - use Go to Game Start button and then make a move
     await historyPage.goToGameStartButton.click();
     await boardPage.firstSquare.click();
-    // ASSERT
+    // ASSERT - Verify the number of "Go to move" buttons displayed
     expect(await historyPage.goToMoveButton.count()).toBe(1);
-    // ACT
+    // ACT - use Game Reset button
     await boardPage.resetGame();
-    // ASSERT
+    // ASSERT - Verify the number of "Go to move" buttons displayed
     expect(await historyPage.goToMoveButton.count()).toBe(0);
   });
 
@@ -67,10 +67,10 @@ test.describe("Turn History Functionality", () => {
     historyPage,
     boardPage,
   }) => {
-    // ACT
+    // ACT - set the gameboard to a specific state and then click on a move in Turn History
     await boardPage.playersAlmostDrawByAllMoves();
     await historyPage.gotoMoveButton8.click();
-    // ASSERT
+    // ASSERT - check if the gameboard is updated correctly
     expect(await boardPage.gameStatusText.innerText()).toBe("Next player: O");
     await expect(boardPage.ninthSquare).toHaveText("");
   });

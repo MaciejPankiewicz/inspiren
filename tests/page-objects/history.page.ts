@@ -1,11 +1,11 @@
 import { Locator, Page } from "@playwright/test";
 
 export class HistoryPage {
-  goToGameStartButton: Locator;
-  goToMoveButton: Locator;
-  turnHistoryLabelText: Locator;
-  gotoMoveButton8: Locator;
-  constructor(private page: Page) {
+  readonly goToGameStartButton: Locator;
+  readonly goToMoveButton: Locator;
+  readonly turnHistoryLabelText: Locator;
+  readonly gotoMoveButton8: Locator;
+  constructor(page: Page) {
     this.goToGameStartButton = page.getByRole("button", {
       name: "Go to game start",
     });
