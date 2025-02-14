@@ -154,7 +154,7 @@ test.describe("Game Functionality - Field Selection", () => {
   }) => {
     // ACT - make a move
     await boardPage.clickAndAssertSquare(1, 1, "X");
-    // ASSERT - check if the field is marked
+    // ASSERT - check if the field is marked properly
     await boardPage.clickAndAssertSquare(1, 1, "X");
     // ACT - make a move on another field
     await boardPage.clickAndAssertSquare(1, 2, "O");
@@ -184,13 +184,15 @@ test.describe("Game Functionality - Reset Button and Player Turn Display", () =>
     await boardPage.clickAndAssertSquare(1, 1, "X");
     // ASSERT - check if the game status text is correct
     await boardPage.assertGameStatus("Next player: O");
+    // ACT - make a move
     await boardPage.clickAndAssertSquare(1, 2, "O");
     // ACT -  make another move
     await boardPage.clickAndAssertSquare(1, 3, "X");
     // ASSERT - check if the game status text is correct
     await boardPage.assertGameStatus("Next player: O");
+    // ACT - reset the game
     await boardPage.resetGame();
-    // ASSERT - Verify no selected squares are present on the gameboard
+    // ASSERT - verify no selected squares are present on the gameboard
     await boardPage.checkEachRowForSelectedSquares();
     // ASSERT - check if the game status text is correct
     await boardPage.assertGameStatus("Next player: X");
