@@ -153,11 +153,11 @@ test.describe("Game Functionality - Field Selection", () => {
     boardPage,
   }) => {
     // ACT - make a move
-    await boardPage.clickAndAssert(1, 1, "X");
+    await boardPage.clickAndAssertSquare(1, 1, "X");
     // ASSERT - check if the field is marked
-    await boardPage.clickAndAssert(1, 1, "X");
+    await boardPage.clickAndAssertSquare(1, 1, "X");
     // ACT - make a move on another field
-    await boardPage.clickAndAssert(1, 2, "O");
+    await boardPage.clickAndAssertSquare(1, 2, "O");
   });
   test("Check if players can select fields after a game-winning move", async ({
     boardPage,
@@ -170,7 +170,7 @@ test.describe("Game Functionality - Field Selection", () => {
       [2, 2], // O
       [1, 3], // X wins
     ]);
-    await boardPage.clickAndAssert(2, 3, "");
+    await boardPage.clickAndAssertSquare(2, 3, "");
   });
 });
 
@@ -181,12 +181,12 @@ test.describe("Game Functionality - Reset Button and Player Turn Display", () =>
     // ASSERT - check if the game status text is correct
     await boardPage.assertGameStatus("Next player: X");
     // ACT - make a move
-    await boardPage.clickAndAssert(1, 1, "X");
+    await boardPage.clickAndAssertSquare(1, 1, "X");
     // ASSERT - check if the game status text is correct
     await boardPage.assertGameStatus("Next player: O");
-    await boardPage.clickAndAssert(1, 2, "O");
+    await boardPage.clickAndAssertSquare(1, 2, "O");
     // ACT -  make another move
-    await boardPage.clickAndAssert(1, 3, "X");
+    await boardPage.clickAndAssertSquare(1, 3, "X");
     // ASSERT - check if the game status text is correct
     await boardPage.assertGameStatus("Next player: O");
     await boardPage.resetGame();
